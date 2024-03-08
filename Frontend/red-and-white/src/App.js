@@ -1,12 +1,13 @@
 import './App.css';
 import Navbar from './Components/Navbar';
-import ProductPage from './Pages/ProductPage';
+import Allroutes from './Components/Allroutes'
+
 function App() {
   return (
     <div className="App">
-      <h1>Red and White</h1>
       <Navbar />
-      {/* <ProductPage /> */}
+      <Allroutes />
+
     </div>
   );
 }

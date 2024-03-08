@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ProductList from './ProductList';
 import { SimpleGrid, Button, ButtonGroup } from '@chakra-ui/react';
+import Cartpage from './Cartpage';
 
 export default function ProductPage() {
     const [data, setData] = useState([]);
     const [originalData, setOriginalData] = useState([]);
+    const [cart, setCart] = useState([])
 
     useEffect(() => {
         fetch("http://localhost:5000/products")
@@ -25,6 +27,26 @@ export default function ProductPage() {
         setData(originalData);
     };
 
+    //cart page logic
+
+    const addToCart = (product) => {
+        const existingItem = cart.find((item) => item.id === product.id)
+        if (existingItem) {
+            const updateCart = cart.map((item) => {
+
+                if (item.id === product.id) {
+                    return { ...item, quantity: item.quantity + 1 }
+                }
+                return item;
+            })
+            setCart(updateCart)
+        } else {
+            setCart([...cart, { ...product, quantity: 1 }])
+            alert("Product added to cart")
+        }
+    }
+    console.log(cart,"cart")
+
     return (
         <div>
             <div>
@@ -38,7 +60,14 @@ export default function ProductPage() {
             </div>
 
             <SimpleGrid columns={4} spacing={10}>
-                {data.map(item => <ProductList key={item.id} {...item} />)}
+                {data.map(item => <ProductList key={item.id} {...item} addToCart={addToCart}  />)}
+            </SimpleGrid>
+
+            {/* {cart?.map(item =>  <Cartpage key={item.id} title={item.title}   />)} */}
+            <Cartpage cart={cart} />
+
+            <SimpleGrid columns={4} spacing={10}>
+               
             </SimpleGrid>
         </div>
     );

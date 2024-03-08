@@ -8,22 +8,22 @@ const Navbar = () => {
     <Flex p="4" bg="teal.500" align="center">
       <Box>
         <Text fontSize="2xl" fontWeight="bold" color="white">
-          My Store
+          Store
         </Text>
       </Box>
       <Spacer />
-      <Box>
-        <Link to="/cart">
-          <Text fontSize="lg" color="white" fontWeight="bold" mr="4">
-            Cart
-          </Text>
-        </Link>
-      </Box>
 
       <Box>
         <Link to="/">
           <Text fontSize="lg" color="white" fontWeight="bold" mr="4">
             Homepage
+          </Text>
+        </Link>
+      </Box>
+      <Box>
+        <Link to="/cart">
+          <Text fontSize="lg" color="white" fontWeight="bold" mr="4">
+            Cart
           </Text>
         </Link>
       </Box>

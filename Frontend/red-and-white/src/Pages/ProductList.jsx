@@ -1,10 +1,7 @@
 import React from 'react';
 import { Card, Image, Stack, Heading, Text, Divider, ButtonGroup, Button, CardBody, CardFooter } from '@chakra-ui/react';
-
+import axios from "axios"
 export default function ProductList({ id, image, category, title, description, price, addToCart }) {
-
-    
-     
 
     const limitDescription = (description) => {
         const words = description.split(' ');
@@ -14,10 +11,23 @@ export default function ProductList({ id, image, category, title, description, p
         return description;
     };
 
-    const handleAddToCart = (id) => {
-        
-       
-    }
+    const handleAddToCart = () => {
+        const product = {
+            id: id,
+            image: image,
+            category: category,
+            title: title,
+            description: description,
+            price: price
+        };
+        // addToCart(product);
+        axios.post(`http://localhost:5000/cart/add-to-cart`,product).then((res)=>{
+            alert("Data is stored in Cart!")
+            console.log(res,"res")
+        }).catch((error)=>{
+            console.log(error.message)
+        })
+    };
 
     return (
         <div>
@@ -45,7 +55,7 @@ export default function ProductList({ id, image, category, title, description, p
                 <Divider />
                 <CardFooter>
                     <ButtonGroup spacing='2'>
-                        <Button onClick={()=>handleAddToCart(id)} variant='solid' colorScheme='blue'>
+                        <Button onClick={handleAddToCart} variant='solid' colorScheme='blue'>
                             Add to cart
                         </Button>
                     </ButtonGroup>
